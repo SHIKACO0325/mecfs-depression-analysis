@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "DRAFT: confirm code authorship and replace placeholders before renaming this file to CITATION.cff."
+title: "ME/CFS and depression: exploratory classification materials"
+type: software
+authors:
+  - family-names: "REPLACE_WITH_VERIFIED_FAMILY_NAME"
+    given-names: "REPLACE_WITH_VERIFIED_GIVEN_NAMES"
+# Add the real repository-code authors, URL, and final release/version.
+# Do not invent a DOI or identify the manuscript authors as dataset creators.
