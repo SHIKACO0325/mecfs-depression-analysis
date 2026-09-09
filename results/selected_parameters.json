@@ -1,0 +1,137 @@
+[
+  {
+    "fold": 1,
+    "model": "LR",
+    "inner_macro_f1": 0.7779720945469547,
+    "parameters": {
+      "model__C": 10.0
+    }
+  },
+  {
+    "fold": 1,
+    "model": "DT",
+    "inner_macro_f1": 0.7923089806767937,
+    "parameters": {
+      "model__max_depth": 3,
+      "model__min_samples_leaf": 2
+    }
+  },
+  {
+    "fold": 1,
+    "model": "RF",
+    "inner_macro_f1": 0.7996832558193483,
+    "parameters": {
+      "model__max_depth": null,
+      "model__max_features": 0.7,
+      "model__min_samples_leaf": 5
+    }
+  },
+  {
+    "fold": 2,
+    "model": "LR",
+    "inner_macro_f1": 0.7648106767952282,
+    "parameters": {
+      "model__C": 0.1
+    }
+  },
+  {
+    "fold": 2,
+    "model": "DT",
+    "inner_macro_f1": 0.7823937931757111,
+    "parameters": {
+      "model__max_depth": 3,
+      "model__min_samples_leaf": 2
+    }
+  },
+  {
+    "fold": 2,
+    "model": "RF",
+    "inner_macro_f1": 0.7900094616552679,
+    "parameters": {
+      "model__max_depth": null,
+      "model__max_features": 0.7,
+      "model__min_samples_leaf": 5
+    }
+  },
+  {
+    "fold": 3,
+    "model": "LR",
+    "inner_macro_f1": 0.7737383276142512,
+    "parameters": {
+      "model__C": 0.1
+    }
+  },
+  {
+    "fold": 3,
+    "model": "DT",
+    "inner_macro_f1": 0.7942379857889615,
+    "parameters": {
+      "model__max_depth": 3,
+      "model__min_samples_leaf": 2
+    }
+  },
+  {
+    "fold": 3,
+    "model": "RF",
+    "inner_macro_f1": 0.8112930788002878,
+    "parameters": {
+      "model__max_depth": 5,
+      "model__max_features": 0.7,
+      "model__min_samples_leaf": 2
+    }
+  },
+  {
+    "fold": 4,
+    "model": "LR",
+    "inner_macro_f1": 0.7740677168919889,
+    "parameters": {
+      "model__C": 0.01
+    }
+  },
+  {
+    "fold": 4,
+    "model": "DT",
+    "inner_macro_f1": 0.7947594712973166,
+    "parameters": {
+      "model__max_depth": 3,
+      "model__min_samples_leaf": 2
+    }
+  },
+  {
+    "fold": 4,
+    "model": "RF",
+    "inner_macro_f1": 0.8028699154193076,
+    "parameters": {
+      "model__max_depth": null,
+      "model__max_features": 0.7,
+      "model__min_samples_leaf": 2
+    }
+  },
+  {
+    "fold": 5,
+    "model": "LR",
+    "inner_macro_f1": 0.7790542661177741,
+    "parameters": {
+      "model__C": 0.1
+    }
+  },
+  {
+    "fold": 5,
+    "model": "DT",
+    "inner_macro_f1": 0.7949992660362465,
+    "parameters": {
+      "model__max_depth": 3,
+      "model__min_samples_leaf": 2
+    }
+  },
+  {
+    "fold": 5,
+    "model": "RF",
+    "inner_macro_f1": 0.8178900593613592,
+    "parameters": {
+      "model__max_depth": 8,
+      "model__max_features": 0.7,
+      "model__min_samples_leaf": 5
+    }
+  }
+]

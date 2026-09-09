@@ -1,57 +1,41 @@
-# ME/CFS and depression: exploratory classification materials
+# Revised ME/CFS and depression label classification
 
-**Status: private author-review working archive. This is not a validated clinical diagnostic model.**
+This package contains an executed retrospective internal reanalysis. The original dataset provenance and synthetic status remain unverified. Results concern recorded labels, not clinical diagnoses.
 
-This project organizes the data, original notebooks, saved model artifacts, and historical figures associated with the manuscript *Machine Learning-Based Differential Diagnosis of ME/CFS and Depression Using Clinical and Symptom Features*. The manuscript is under revision.
+## Run
 
-## Data provenance
-
-The manuscript author reports receiving the dataset from a former course instructor associated with a Coursera course. The author believes the dataset may have been artificially generated; this has not yet been confirmed by the provider. These files must not be described as verified patient records or an official Coursera dataset.
-
-Using an existing dataset is secondary analysis. That description does not resolve whether the underlying data are empirical or synthetic. Provider attribution, generation/collection procedures, diagnosis-label rules, and permission to redistribute the materials remain to be established. See [data/README.md](data/README.md).
-
-## Contents
-
-| Folder/file | Contents |
-| --- | --- |
-| `data/raw/Data.csv` | Supplied data with missing values; unchanged |
-| `data/legacy_processed/multiple_imputed.csv` | Supplied completed dataset; unchanged; affected by the documented legacy workflow |
-| `notebooks/legacy/` | Two original notebooks, including saved outputs; unchanged |
-| `models/legacy/` | Three original `.joblib` files; unchanged |
-| `figures/legacy/` | Six original manuscript figures; historical results |
-| `KNOWN_ISSUES.md` | Methodological and reproducibility limitations |
-| `tools/stage_legacy.py` | Copies files into a separate working directory with filenames expected by the notebooks |
-| `docs/ENVIRONMENT.md` | What is and is not known about dependencies |
-| `docs/PAPER_CITATION.md` | Conditional manuscript wording and citation template |
-| `CITATION.cff.example` | Draft citation metadata; finalize after repository URL and authorship confirmation |
-| `SHA256SUMS.txt` | Checksums for the packaged files |
-
-## Inspecting and running the archived notebooks
-
-Read `KNOWN_ISSUES.md` first. Inspect saved outputs without rerunning if the goal is to review the original analysis. This archive does not provide a corrected analysis or promise that all cells execute successfully.
-
-For a separate local working copy, run from the project root:
+Use Python 3.12.14 and install the pinned packages with `python -m pip install -r requirements.txt`. Then run:
 
 ```bash
-python tools/stage_legacy.py
-cd work/legacy
-jupyter lab
+python run_analysis.py --data Data.csv
 ```
 
-The staging script uses only Python's standard library. Jupyter and the scientific packages listed in `docs/ENVIRONMENT.md` are required to run the notebooks themselves; the original complete environment is not available.
+Alternatively, open `run_reanalysis.ipynb` in Jupyter with a kernel containing these packages and run its code cell. Jupyter is a launcher; all analysis logic is in the supplied script. Running regenerates the results directory and may replace existing results. Preserve a copy to compare runs.
 
-The notebook filenames retain their original spelling. The script supplies `group_30.csv` and `group_30_multiple_imputed.csv`, which the notebooks expect, as copies of the supplied CSV files. This is a working filename mapping, not proof of their original export history. The cleaning notebook does not visibly export its in-memory imputation result before reading the completed CSV. Rerunning it therefore does not automatically replace the completed file used for evaluation.
+## Evaluation fixed for this revision
 
-Notebook execution can retrain models and overwrite outputs in the working directory. The plotting dashboard has a recorded error. The evaluation notebook's model-saving loop repeatedly overwrites `best_model.pkl`; that filename should not be interpreted as a validated model-selection result. The staged working directory is excluded from Git.
+Five outer stratified folds (seed 42), three inner stratified folds (seed 43). Training-fold median numeric imputation and most-frequent categorical imputation, numerical standardization, and one-hot encoding are inside the classifier pipeline. Diagnosis is excluded from predictors. All searches optimize macro F1. LR uses 4 C candidates; DT and RF each use 12 candidates. Grids and fixed model parameters are in run_analysis.py and results/protocol.json. All three classifiers use balanced class weights. A majority baseline uses the same folds.
 
-## Analysis status
+The specification was fixed before this new run, after historical dataset inspection. This is not a prospective or externally independent validation. No final deployment model is exported. No claim of clinical utility or statistically significant model superiority is made.
 
-The supplied data contain 1,620 records and 15 predictors plus the `diagnosis` field. Label counts are ME/CFS 648, Depression 567, and Both 405. The original evaluation used an 80:20 stratified split and three models: logistic regression, decision tree, and random forest.
+Median/mode imputation replaces the historical iterative approach. The evaluation design and search grids also differ from the historical analysis, so score differences do not isolate leakage effects. No undocumented outlier recoding or sample exclusion is performed. Grouping and record independence cannot be verified. The supplied data and provider identity have not been independently authenticated.
 
-The legacy cleaning code uses the diagnosis label to assist numerical imputation and fits imputation before the split. Encoding and scaling are also outside the inner cross-validation folds. Historical scores are consequently not leakage-controlled estimates. Corrected preprocessing, tuning, and evaluation remain outstanding. Uploading the files to GitHub does not fix these issues.
+## Outputs
 
-## Attribution, permissions, and citation
+- results/summary.json: pooled predictions and fold summary statistics. Pooled macro F1 is not the same as fold-mean macro F1.
+- results/fold_metrics.csv: fold performance and apparent training macro F1; SD describes variation, not confidence intervals.
+- results/oof_predictions.csv: 0-based raw row index, outer fold, model, recorded label, prediction, probabilities; each row receives one outer prediction per model.
+- results/search_*.csv and selected_parameters.json: inner searches and fold-specific selections.
+- results/permutation_importance.csv and importance_summary.csv: marginal permutation decreases in held-out macro F1. Ten repeats averaged within each fold; mean and SD then calculated across five folds.
+- results/figure_01.png to figure_06.png: revised figures; Figures 1–3 use observed raw values, not a full-data imputation.
+- results/data_audit.json, environment.json, warnings.json, protocol.json: input audit and execution settings.
+- run.log: actual execution log.
+- change_log.md and change_log.json: paragraph-level before and after text relative to the preceding review draft. Table 1 and all six figures are replaced by newly computed results.
 
-No open-source or open-data license is assigned by this packaging step. Rights, attribution, and redistribution permission for instructor-provided data/code require confirmation. Keep the repository private while resolving these questions. A private URL alone does not provide access to reviewers or readers.
+## GitHub integration
 
-After the materials are cleared for sharing and the analysis is finalized, complete the citation metadata and cite the exact release or commit used by the paper. Do not invent a DOI, publication date, repository address, or clinical data source. The repository citation documents access to these materials; it does not replace the original data-source statement.
+Original archive: https://github.com/SHIKACO0325/mecfs-depression-analysis . Its public status was verified during this revision; older README references to private status are outdated. This revised package has NOT been uploaded to that repository. Keep original notebooks, model artifacts, figures, and completed CSV in legacy paths. Add the contents of this package under a separate revised_analysis/ directory and link that directory from the root README. Amend the root status to public author-review archive and retain the unverified-provenance disclosure. Cite the final commit or release after upload; do not invent a DOI. Record permissions for original data/code before claiming a license or unrestricted reuse.
+
+Data.csv here is the exact supplied raw local input used for the run. Its values match the public repository raw CSV; file bytes differ. The public raw blob was 1095a87e17ef46d21309d3a579b73766dfb6fc6e at retrieval. The local SHA-256 is in protocol.json and SHA256SUMS.txt.
+
+Implementation references: https://scikit-learn.org/stable/common_pitfalls.html and https://scikit-learn.org/stable/auto_examples/model_selection/plot_nested_cross_validation_iris.html . These document the pipeline and nested-evaluation approach, not this dataset’s validity.

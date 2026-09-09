@@ -1,0 +1,51 @@
+{
+  "shape": [
+    1620,
+    16
+  ],
+  "class_counts": {
+    "ME/CFS": 648,
+    "Depression": 567,
+    "Both": 405
+  },
+  "missing": {
+    "age": 0,
+    "gender": 0,
+    "sleep_quality_index": 27,
+    "brain_fog_level": 27,
+    "physical_pain_score": 26,
+    "stress_level": 24,
+    "depression_phq9_score": 26,
+    "fatigue_severity_scale_score": 28,
+    "pem_duration_hours": 23,
+    "hours_of_sleep_per_night": 26,
+    "pem_present": 28,
+    "work_status": 25,
+    "social_activity_level": 27,
+    "exercise_frequency": 23,
+    "meditation_or_mindfulness": 23,
+    "diagnosis": 0
+  },
+  "rows_with_missing": 302,
+  "duplicate_rows": 0,
+  "duplicate_predictor_rows": 0,
+  "numeric_predictors": [
+    "age",
+    "sleep_quality_index",
+    "brain_fog_level",
+    "physical_pain_score",
+    "stress_level",
+    "depression_phq9_score",
+    "fatigue_severity_scale_score",
+    "pem_duration_hours",
+    "hours_of_sleep_per_night"
+  ],
+  "categorical_predictors": [
+    "gender",
+    "pem_present",
+    "work_status",
+    "social_activity_level",
+    "exercise_frequency",
+    "meditation_or_mindfulness"
+  ]
+}
